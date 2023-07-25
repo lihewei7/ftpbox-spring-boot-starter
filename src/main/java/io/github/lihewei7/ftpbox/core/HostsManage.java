@@ -18,12 +18,12 @@ public class HostsManage {
     private static final ThreadLocal<Hosts> THREADLOCAL = new ThreadLocal<>();
     private static Set<String> hostNames;
 
-    public static LinkedHashMap<String, FtpProperties> initHostKeys(LinkedHashMap<String, FtpProperties> sftpPropertiesMap) {
+    public static LinkedHashMap<String, FtpProperties> initHostKeys(LinkedHashMap<String, FtpProperties> ftpPropertiesMap) {
         if (hostNames != null) {
             throw new UnsupportedOperationException("HostHolder hostNames unsupported modify");
         }
-        hostNames = Collections.unmodifiableSet(sftpPropertiesMap.keySet());
-        return sftpPropertiesMap;
+        hostNames = Collections.unmodifiableSet(ftpPropertiesMap.keySet());
+        return ftpPropertiesMap;
     }
 
     /**

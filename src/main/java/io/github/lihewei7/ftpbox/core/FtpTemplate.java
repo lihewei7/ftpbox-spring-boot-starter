@@ -23,7 +23,7 @@ public final class FtpTemplate {
         FtpClient ftpClient = null;
         try {
             ftpClient = ftpPool.borrowObject(hostName);
-            return action.doInSftp(ftpClient.getFtp());
+            return action.doInFtp(ftpClient.getFtp());
         }finally {
             HostsManage.clear();
             if (ftpClient != null) {
@@ -43,7 +43,7 @@ public final class FtpTemplate {
     public void executeWithoutResult(FtpCallbackWithoutResult action) throws Exception {
         Assert.notNull(action, "Callback object must not be null");
         this.execute(ftpClient -> {
-            action.doInSftp(ftpClient);
+            action.doInFtp(ftpClient);
             return null;
         });
     }
@@ -61,6 +61,6 @@ public final class FtpTemplate {
     }
 
     public String list(String path) throws Exception {
-        return this.execute(channelSftp -> new FtpWrapper(channelSftp).list(path));
+        return this.execute(ftpClient -> new FtpWrapper(ftpClient).list(path));
     }
 }

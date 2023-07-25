@@ -123,7 +123,7 @@ public class FtpWrapper {
 
         try {
             for (int i = 0; i < tempDir.length; i++) {
-                //注意Split函数会对"/webjoin/ebupt/"拆出第一个String为空串，这里过滤掉
+                //注意Split函数会对"/webjoin/lihw/"拆出第一个String为空串，这里过滤掉
                 if (tempDir[i].length() > 0) {
                     try {
                         ftpClient.chdir(tempDir[i]);
@@ -153,7 +153,7 @@ public class FtpWrapper {
 
         try {
             for (int i = 0; i < tempDir.length; i++) {
-                //注意Split函数会对"/webjoin/ebupt/"拆出第一个String为空串，这里过滤掉
+                //注意Split函数会对"/webjoin/lihw/"拆出第一个String为空串，这里过滤掉
                 if (tempDir[i].length() > 0) {
                     try {
                         ftpClient.chdir(tempDir[i]);

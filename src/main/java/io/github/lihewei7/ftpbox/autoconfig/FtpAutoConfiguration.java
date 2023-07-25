@@ -26,7 +26,7 @@ public class FtpAutoConfiguration {
 
     @Bean
     @DependsOn("ftpPool")
-    public FtpTemplate sftpTemplate(FtpPool ftpPool) {
+    public FtpTemplate ftpTemplate(FtpPool ftpPool) {
         return new FtpTemplate(ftpPool);
     }
 }

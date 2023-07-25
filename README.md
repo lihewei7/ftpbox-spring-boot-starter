@@ -24,10 +24,11 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 </dependency>
 ```
 
-| 毕业版本   | 描述                     |
-| ------ | ---------------------- |
-| v1.0.0 | Version initialization |
-| v1.0.1 | Version optimization   |
+| 毕业版本   | 描述                                 |
+| ------ | ---------------------------------- |
+| v1.0.0 | Version initialization             |
+| v1.0.1 | Version optimization               |
+| v1.0.2 | Optimize configuration information |
 
 ## 配置
 
@@ -142,9 +143,9 @@ ftp:
 ```java
 HostsManage.changeHost("rd-1");
 // 成功打印 rd-1 对应连接的原始目录
-ftpTemplate.execute(ChannelSftp::pwd);
+ftpTemplate.execute(ftpClient::pwd);
 // 第二次执行失败，抛出空指针，需要再次指定对应连接才能继续使用
-ftpTemplate.execute(ChannelSftp::pwd);
+ftpTemplate.execute(ftpClient::pwd);
 ```
 
 - `HostsManage.changeHost(hostname, boolean)`：连续使用相同 host 进行操作，避免执行一次 FtpTemplate 就要设置一次 hostName。注意要配合 `HostHolder.clearHost()` 使用！！！
@@ -283,7 +284,7 @@ String dir2 = ftpTemplate.execute(ftpClient -> pwd());
 
 ### executeWithoutResult
 
-`executeWithoutResult(SftpCallbackWithoutResult action)`用于执行自定义没有返回值的FTP操作，比如查看默认的SFTP目录（ftpClient 的其他用途，请参考 edtFTPj 的 API）
+`executeWithoutResult(FtpCallbackWithoutResult action)`用于执行自定义没有返回值的FTP操作，比如查看默认的 FTP目录（ftpClient 的其他用途，请参考 edtFTPj 的 API）
 
 ```java
 String localPath = "/home/lihw/local/";

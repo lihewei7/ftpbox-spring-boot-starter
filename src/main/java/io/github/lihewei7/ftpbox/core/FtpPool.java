@@ -17,16 +17,16 @@ import java.util.LinkedHashMap;
 public class FtpPool {
     private static final Log _logger = LogFactory.getLog(FtpPool.class);
     public static final String COULD_NOT_GET_A_RESOURCE_FROM_THE_POOL = "Could not get a resource from the pool";
-    private GenericObjectPool<FtpClient> genericSftpPool;
-    private GenericKeyedObjectPool<String, FtpClient> genericKeyedSftpPool;
+    private GenericObjectPool<FtpClient> genericFtpPool;
+    private GenericKeyedObjectPool<String, FtpClient> genericKeyedFtpPool;
 
     public FtpPool(FtpProperties ftpProperties, PoolProperties poolProperties) {
-        this.genericSftpPool = new GenericObjectPool<>(new PooledClientFactory(ftpProperties), getPoolConfig(poolProperties));
+        this.genericFtpPool = new GenericObjectPool<>(new PooledClientFactory(ftpProperties), getPoolConfig(poolProperties));
         _logger.info("FTPBox: Created");
     }
 
-    public FtpPool(LinkedHashMap sftpPropertiesMap, PoolProperties poolProperties){
-        this.genericKeyedSftpPool = new GenericKeyedObjectPool<>(new keyedPooledClientFactory(sftpPropertiesMap),getKeyedPoolConfig(poolProperties));
+    public FtpPool(LinkedHashMap ftpPropertiesMap, PoolProperties poolProperties){
+        this.genericKeyedFtpPool = new GenericKeyedObjectPool<>(new keyedPooledClientFactory(ftpPropertiesMap),getKeyedPoolConfig(poolProperties));
         _logger.info("multiple-host FTPBox Successfully created");
     }
 
@@ -34,7 +34,7 @@ public class FtpPool {
      * Check whether it is a single host.
      */
     public boolean isUniqueHost() {
-        return genericSftpPool != null;
+        return genericFtpPool != null;
     }
 
     /**
@@ -43,7 +43,7 @@ public class FtpPool {
     public FtpClient borrowObject(String key) {
         try {
             return key == null ?
-                    genericSftpPool.borrowObject() : genericKeyedSftpPool.borrowObject(key);
+                    genericFtpPool.borrowObject() : genericKeyedFtpPool.borrowObject(key);
         } catch (Exception e) {
             throw new PoolException(COULD_NOT_GET_A_RESOURCE_FROM_THE_POOL, e);
         }
@@ -55,9 +55,9 @@ public class FtpPool {
     public void returnObject(String key, FtpClient ftpClient) {
         try {
             if (key == null){
-                genericSftpPool.returnObject(ftpClient);
+                genericFtpPool.returnObject(ftpClient);
             }else {
-                genericKeyedSftpPool.returnObject(key, ftpClient);
+                genericKeyedFtpPool.returnObject(key, ftpClient);
             }
         } catch (Exception e) {
             throw new PoolException("Could not return a resource from the pool", e);
@@ -70,9 +70,9 @@ public class FtpPool {
     public void invalidateObject(String key, FtpClient ftpClient) {
         try {
             if (key == null){
-                genericSftpPool.invalidateObject(ftpClient);
+                genericFtpPool.invalidateObject(ftpClient);
             }else {
-                genericKeyedSftpPool.invalidateObject(key, ftpClient);
+                genericKeyedFtpPool.invalidateObject(key, ftpClient);
             }
         } catch (Exception e) {
             throw new PoolException("Could not invalidate the broken resource", e);
@@ -115,8 +115,8 @@ public class FtpPool {
 
         private LinkedHashMap<String, FtpProperties> ftpPropertiesMap;
 
-        public keyedPooledClientFactory(LinkedHashMap sftpPropertiesMap){
-            this.ftpPropertiesMap = sftpPropertiesMap;
+        public keyedPooledClientFactory(LinkedHashMap ftpPropertiesMap){
+            this.ftpPropertiesMap = ftpPropertiesMap;
         }
 
         @Override

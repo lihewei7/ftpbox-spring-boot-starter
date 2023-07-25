@@ -55,7 +55,7 @@ public class FtpClient {
 
 
     /**
-     * todo test connection. ???
+     * todo test connection
      */
     protected boolean test() {
         try {
@@ -72,7 +72,6 @@ public class FtpClient {
      */
     protected boolean reset() {
         try {
-//            channelSftp.cd(originalDir);
             ftp.chdir("/");
             //对要创建的目录进行解析
             originalDir = originalDir.substring(0, originalDir.lastIndexOf("/"));

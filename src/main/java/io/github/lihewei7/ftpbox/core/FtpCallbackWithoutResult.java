@@ -5,5 +5,5 @@ import com.enterprisedt.net.ftp.FTPClient;
 @FunctionalInterface
 public interface FtpCallbackWithoutResult {
 
-  void doInSftp(FTPClient ftp) throws Exception;
+  void doInFtp(FTPClient ftp) throws Exception;
 }
