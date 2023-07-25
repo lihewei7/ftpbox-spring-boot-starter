@@ -5,14 +5,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.LinkedHashMap;
 
 /**
- * @explain: SFTP client configuration information
+ * @explain: FTP client configuration information
  * @author: lihewei
 */
 @ConfigurationProperties("ftp")
 public class FtpProperties {
 
     private String host = "localhost";
-    private int port = 22;
+    private int port = 21;
     private String username;
     private String password = "";
     /**

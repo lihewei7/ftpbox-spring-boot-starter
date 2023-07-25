@@ -19,7 +19,6 @@ public class FtpAutoConfiguration {
 
     @Bean
     public FtpPool ftpPool(FtpProperties ftpProperties, PoolProperties poolProperties) {
-//        JSch.setLogger(new JschLogger(ftpProperties.isEnabledLog()));
         return ftpProperties.getHosts() == null ?
                 new FtpPool(ftpProperties, poolProperties) :
                 new FtpPool(HostsManage.initHostKeys(ftpProperties.getHosts()),poolProperties);

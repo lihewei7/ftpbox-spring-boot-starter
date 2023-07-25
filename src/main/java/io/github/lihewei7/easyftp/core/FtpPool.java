@@ -22,12 +22,12 @@ public class FtpPool {
 
     public FtpPool(FtpProperties ftpProperties, PoolProperties poolProperties) {
         this.genericSftpPool = new GenericObjectPool<>(new PooledClientFactory(ftpProperties), getPoolConfig(poolProperties));
-        _logger.info("Easyftp: Created");
+        _logger.info("FTPBox: Created");
     }
 
     public FtpPool(LinkedHashMap sftpPropertiesMap, PoolProperties poolProperties){
         this.genericKeyedSftpPool = new GenericKeyedObjectPool<>(new keyedPooledClientFactory(sftpPropertiesMap),getKeyedPoolConfig(poolProperties));
-        _logger.info("multiple-host Easysftp Successfully created");
+        _logger.info("multiple-host FTPBox Successfully created");
     }
 
     /**
@@ -38,7 +38,7 @@ public class FtpPool {
     }
 
     /**
-     * Obtain an sftp connection from the pool.
+     * Obtain an ftp connection from the pool.
      */
     public FtpClient borrowObject(String key) {
         try {
@@ -50,7 +50,7 @@ public class FtpPool {
     }
 
     /**
-     * The sftp connection is returned to the pool.
+     * The ftp connection is returned to the pool.
      */
     public void returnObject(String key, FtpClient ftpClient) {
         try {
@@ -65,7 +65,7 @@ public class FtpPool {
     }
 
     /**
-     * The sftp connection is destroyed from the pool.
+     * The ftp connection is destroyed from the pool.
      */
     public void invalidateObject(String key, FtpClient ftpClient) {
         try {

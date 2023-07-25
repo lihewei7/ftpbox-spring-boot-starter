@@ -14,7 +14,7 @@ public final class FtpTemplate {
     }
 
     /**
-     * sftp template methods with return values include basic SFTP operations,
+     * ftp template methods with return values include basic FTP operations,
      * such as obtaining and returning connections.
      */
     public <T> T execute(FtpCallback<T> action) throws Exception {
@@ -37,7 +37,7 @@ public final class FtpTemplate {
     }
 
     /**
-     * The sftp template method with no return value includes basic SFTP operations,
+     * The ftp template method with no return value includes basic FTP operations,
      * such as obtaining and returning connections.
      */
     public void executeWithoutResult(FtpCallbackWithoutResult action) throws Exception {
