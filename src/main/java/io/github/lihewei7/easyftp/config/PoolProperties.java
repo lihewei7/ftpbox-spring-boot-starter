@@ -8,7 +8,7 @@ import java.util.StringJoiner;
  * @explain: Connection pool configuration information
  * @author: lihewei
 */
-@ConfigurationProperties("sftp.pool")
+@ConfigurationProperties("ftp.pool")
 public class PoolProperties {
     /**
      * Minimum number of free connections in the connection pool The default value is 1.
