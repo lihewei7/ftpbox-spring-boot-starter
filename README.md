@@ -20,7 +20,7 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 <dependency>
     <groupId>io.github.lihewei7</groupId>
     <artifactId>ftpbox-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
