@@ -1,7 +1,7 @@
-package io.github.lihewei7.easyftp.core;
+package io.github.lihewei7.ftpbox.core;
 
-import io.github.lihewei7.easyftp.config.PoolProperties;
-import io.github.lihewei7.easyftp.config.FtpProperties;
+import io.github.lihewei7.ftpbox.config.PoolProperties;
+import io.github.lihewei7.ftpbox.config.FtpProperties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.pool2.BaseKeyedPooledObjectFactory;

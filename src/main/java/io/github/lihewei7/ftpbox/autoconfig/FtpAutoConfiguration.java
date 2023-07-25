@@ -1,10 +1,10 @@
-package io.github.lihewei7.easyftp.autoconfig;
+package io.github.lihewei7.ftpbox.autoconfig;
 
-import io.github.lihewei7.easyftp.config.PoolProperties;
-import io.github.lihewei7.easyftp.config.FtpProperties;
-import io.github.lihewei7.easyftp.core.HostsManage;
-import io.github.lihewei7.easyftp.core.FtpPool;
-import io.github.lihewei7.easyftp.core.FtpTemplate;
+import io.github.lihewei7.ftpbox.config.PoolProperties;
+import io.github.lihewei7.ftpbox.config.FtpProperties;
+import io.github.lihewei7.ftpbox.core.HostsManage;
+import io.github.lihewei7.ftpbox.core.FtpPool;
+import io.github.lihewei7.ftpbox.core.FtpTemplate;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

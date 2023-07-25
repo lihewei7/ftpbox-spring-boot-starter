@@ -1,9 +1,9 @@
-package io.github.lihewei7.easyftp.core;
+package io.github.lihewei7.ftpbox.core;
 
 import com.enterprisedt.net.ftp.FTPClient;
 import com.enterprisedt.net.ftp.FTPException;
 import com.enterprisedt.net.ftp.FTPTransferType;
-import io.github.lihewei7.easyftp.config.FtpProperties;
+import io.github.lihewei7.ftpbox.config.FtpProperties;
 
 import java.io.IOException;
 

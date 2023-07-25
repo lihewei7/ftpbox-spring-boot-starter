@@ -1,6 +1,6 @@
-package io.github.lihewei7.easyftp.core;
+package io.github.lihewei7.ftpbox.core;
 
-import io.github.lihewei7.easyftp.config.FtpProperties;
+import io.github.lihewei7.ftpbox.config.FtpProperties;
 import org.springframework.util.Assert;
 
 import java.util.Collections;

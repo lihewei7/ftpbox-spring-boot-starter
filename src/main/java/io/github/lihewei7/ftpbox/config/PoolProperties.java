@@ -1,4 +1,4 @@
-package io.github.lihewei7.easyftp.config;
+package io.github.lihewei7.ftpbox.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

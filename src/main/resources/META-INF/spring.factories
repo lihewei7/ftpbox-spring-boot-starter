@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.lihewei7.easyftp.autoconfig.FtpAutoConfiguration
+io.github.lihewei7.ftpbox.autoconfig.FtpAutoConfiguration

@@ -1,4 +1,4 @@
-package io.github.lihewei7.easyftp.core;
+package io.github.lihewei7.ftpbox.core;
 
 import org.springframework.core.NestedRuntimeException;
 import org.springframework.lang.Nullable;
