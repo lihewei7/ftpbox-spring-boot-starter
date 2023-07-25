@@ -29,6 +29,7 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 | v1.0.0 | Version initialization             |
 | v1.0.1 | Version optimization               |
 | v1.0.2 | Optimize configuration information |
+| v1.0.3 | Standardization to name            |
 
 ## 配置
 
