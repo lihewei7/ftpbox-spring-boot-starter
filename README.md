@@ -10,8 +10,8 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 
 ## Maven依赖
 
-- EasySftp 已上传至 Maven 中央仓库，在工程中导入依赖即可使用
-- EasySftp 依赖 Apache commons-pool2，使用时请一并导入
+- FTPBox 已上传至 Maven 中央仓库，在工程中导入依赖即可使用
+
 
 ```xml
 <dependency>
@@ -28,7 +28,7 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 - ftp基本配置（密码登录）
 
 ```yaml
-sftp:
+ftp:
   enabled-log: false
   host: localhost
   port: 22
