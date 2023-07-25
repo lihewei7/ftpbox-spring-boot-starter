@@ -20,14 +20,6 @@ public class FtpProperties {
      */
     private int connectTimeout = 0;
     /**
-     * Enable jsch log, Cannot be individually turned on or off for one of multiple hosts.
-     */
-    private boolean enabledLog = false;
-    /**
-     * Whether to use a key to log in
-     */
-    private Boolean isCheckToHostKey = false;
-    /**
      * SSH kex algorithms.
      */
     private String kex;
@@ -80,28 +72,12 @@ public class FtpProperties {
         this.password = password;
     }
 
-    public boolean isEnabledLog() {
-        return enabledLog;
-    }
-
-    public void setEnabledLog(boolean enabledLog) {
-        this.enabledLog = enabledLog;
-    }
-
     public int getConnectTimeout() {
         return connectTimeout;
     }
 
     public void setConnectTimeout(int connectTimeout) {
         this.connectTimeout = connectTimeout;
-    }
-
-    public Boolean isCheckToHostKey() {
-        return isCheckToHostKey;
-    }
-
-    public void setCheckToHostKey(Boolean checkToHostKey) {
-        isCheckToHostKey = checkToHostKey;
     }
 
     public String getKex() {

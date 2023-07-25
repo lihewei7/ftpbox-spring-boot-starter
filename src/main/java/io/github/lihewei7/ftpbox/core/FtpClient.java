@@ -68,7 +68,7 @@ public class FtpClient {
     }
 
     /**
-     * Reset the connection and restore the initial sftp path.
+     * Reset the connection and restore the initial ftp path.
      */
     protected boolean reset() {
         try {
@@ -79,7 +79,7 @@ public class FtpClient {
             String[] tempDir = originalDir.split("/");
 
             for (int i = 0; i < tempDir.length; i++) {
-                //注意Split函数会对"/webjoin/ebupt/"拆出第一个String为空串，这里过滤掉
+                //注意Split函数会对"/webjoin/lihw/"拆出第一个String为空串，这里过滤掉
                 if (tempDir[i].length() > 0) {
                     ftp.chdir(tempDir[i]);
                 }

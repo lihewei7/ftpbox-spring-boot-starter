@@ -113,15 +113,15 @@ public class FtpPool {
 
     private static class keyedPooledClientFactory extends BaseKeyedPooledObjectFactory<String, FtpClient> {
 
-        private LinkedHashMap<String, FtpProperties> sftpPropertiesMap;
+        private LinkedHashMap<String, FtpProperties> ftpPropertiesMap;
 
         public keyedPooledClientFactory(LinkedHashMap sftpPropertiesMap){
-            this.sftpPropertiesMap = sftpPropertiesMap;
+            this.ftpPropertiesMap = sftpPropertiesMap;
         }
 
         @Override
         public FtpClient create(String key) {
-            return new FtpClient(sftpPropertiesMap.get(key));
+            return new FtpClient(ftpPropertiesMap.get(key));
         }
 
         @Override
