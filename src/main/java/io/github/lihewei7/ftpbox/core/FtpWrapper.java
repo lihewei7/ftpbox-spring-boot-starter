@@ -114,7 +114,7 @@ public class FtpWrapper {
         }
     }
 
-    private void changeDirectory(String path) throws Exception {
+    public void changeDirectory(String path) throws Exception {
         //注意ftp当前的目录大部分情况下都不是根目录，因此最好调整目录
         ftpClient.chdir("/");
         //对要创建的目录进行解析

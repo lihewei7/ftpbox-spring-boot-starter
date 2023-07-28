@@ -20,7 +20,7 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 <dependency>
     <groupId>io.github.lihewei7</groupId>
     <artifactId>ftpbox-spring-boot-starter</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 
@@ -30,183 +30,7 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 | v1.0.1 | Version optimization               |
 | v1.0.2 | Optimize configuration information |
 | v1.0.3 | Standardization to name            |
-
-## 配置
-
-### 单主机配置
-
-- ftp基本配置（密码登录）
-
-```yaml
-ftp:
-  enabled-log: false
-  host: localhost
-  port: 22
-  username: root
-  password: 1234
-```
-
-- ftp基本配置（密钥登录）
-
-```yaml
-ftp:
-  enabled-log: false
-  host: 10.1.61.118
-  port: 19222
-  username: lihw
-  check-to-host-key: true
-  key-path: /home/lihw/.ssh/id_rsa
-  password: 生成密钥时的密码
-  connect-timeout: 1500
-```
-
-- 连接池配置（可不配置使用默认值）
-
-```yaml
-ftp:
-  pool:
-    min-idle: 1
-    max-idle: 8
-    max-active: 8
-    max-wait: -1
-    test-on-borrow: true
-    test-on-return: false
-    test-while-idle: true
-    time-between-eviction-runs: 600000
-    min-evictable-idle-time-millis: 1800000
-```
-
-### 多主机配置
-
-在多 Host 使用  FtpTemplate 需要为 FTPBox 指定将要使用的主机，详细操作见下方API。hosts 下可配置多台主机。rd-1为主机名（ftp.hosts 下 map 中的 key 代表 hostName ，可自定义主机名）
-
-- 多 host ，密码登录
-
-```yaml
-ftp:
-  enabled-log: false
-  hosts:
-    rd-1:
-      host: 127.0.0.1
-      port: 22
-      username: lihw
-      password: 1234
-    rd-2:
-      host: 127.0.0.2
-      port: 22
-      username: lihw
-      password: 1234
-```
-
-- 多 host ，密码 + 密钥登录方式
-
-```yaml
-ftp:
-  enabled-log: false
-  hosts:
-    rd-118:
-      host: 10.1.61.118
-      port: 19222
-      username: lihw
-      password: 1234
-      connect-timeout: 1500
-    rd-118:
-      host: 10.1.61.119
-      port: 19222
-      username: lihw
-      check-to-host-key: true
-      key-path: /home/lihw/.ssh/id_rsa
-      password: 生成密钥时设置的密码
-      connect-timeout: 1500
-```
-
-- 多 Host 连接池配置（可不配置使用默认值）
-
-```yaml
-ftp:
-  pool:
-    min-idle-per-key: 1
-    max-idle-per-key: 8
-    max-active-per-key: 8
-    max-active: 8
-    max-wait: -1
-    test-on-borrow: true
-    test-on-return: false
-    test-while-idle: true
-    time-between-eviction-runs: 600000
-    min-evictable-idle-time-millis: 1800000
-```
-
-### 多Host使用手册
-
-- `HostsManage.changeHost(hostname)` ：通过 hostName 指定下次使用的连接。注意它只能指定下一次的连接！！！
-
-```java
-HostsManage.changeHost("rd-1");
-// 成功打印 rd-1 对应连接的原始目录
-ftpTemplate.execute(ftpClient::pwd);
-// 第二次执行失败，抛出空指针，需要再次指定对应连接才能继续使用
-ftpTemplate.execute(ftpClient::pwd);
-```
-
-- `HostsManage.changeHost(hostname, boolean)`：连续使用相同 host 进行操作，避免执行一次 FtpTemplate 就要设置一次 hostName。注意要配合 `HostHolder.clearHost()` 使用！！！
-
-```java
-HostsManage.changeHost("rd-1", false);
-try {
-  ftpTemplate.upload("D:\\a.docx", "/home/ftpbox/a.docx");
-  ftpTemplate.upload("D:\\b.pdf", "ftpbox/b.pdf");
-  ftpTemplate.upload("D:\\c.doc", "c.doc");
-} finally {
-  HostsManage.clearHost();
-}
-```
-
-- `HostsManage.hostNames()` 与 ：获取所有的 host 连接的 name
-
-```java
-//有时需要批量执行配置的 n 个 host 连接，此时可以通过该方法获取所有或过滤后的 hostName 集合。
-for (String hostName : HostsManage.hostNames()) {
-   HostsManage.changeHost(hostName);
-   ftpTemplate.upload("D:\\a.docx", "/home/ftpbox/a.docx");
-}
-```
-
-- `HostsManage.hostNames(Predicate<String>)`：获取过滤后的 host 连接的 name
-
-```java
-// 获取所有以“rd-”开头的 hostName
-for (String hostName : HostsManage.hostNames(s -> s.startsWith("rd-"))) {
-  HostsManage.changeHost(hostName);
-  ftpTemplate.upload("D:\\a.docx", "/home/ftpbox/a.docx");
-}
-```
-
-## 使用
-
-FTPBox 提供 FtpTemplate 类，它与 `spring-boot-starter-data-redis` 提供的 RedisTemplate 使用方法相同，任意方式注入即可使用：
-
-1. 导入 FTPBox 依赖
-2. 配置服务器（`源服务器`和`目标服务器`)
-3. 查看API
-4. 按需使用
-
-```java
-@Component
-public class XXXService {
-  
-  @Autowired
-  private FtpTemplate ftpTemplate;
-
-  public void downloadFileWork(String from, String to) throws Exception {
-    ftpTemplate.download(from, to);
-  }
-  
-  public void uploadFileWork(String from, String to) throws Exception {
-    ftpTemplate.upload(from, to);
-  }
-}
-```
+| v1.0.4 | ChangeDirectory modify to public   |
 
 ## API
 
@@ -291,4 +115,143 @@ String dir2 = ftpTemplate.execute(ftpClient -> pwd());
 String localPath = "/home/lihw/local/";
 String remoteFile = "remote1.txt";
 ftpTemplate.executeWithoutResult(ftpClient -> System.out.println(ftpClient.get(localPath,remoteFile)));
+```
+
+## 使用
+
+FTPBox 提供 FtpTemplate 类，它与 `spring-boot-starter-data-redis` 提供的 RedisTemplate 使用方法相同，任意方式注入即可使用：
+
+1. 导入 FTPBox 依赖
+2. 配置服务器（`源服务器`和`目标服务器`)
+3. 查看API
+4. 按需使用
+
+```java
+@Component
+public class XXXService {
+  
+  @Autowired
+  private FtpTemplate ftpTemplate;
+
+  public void downloadFileWork(String from, String to) throws Exception {
+    ftpTemplate.download(from, to);
+  }
+  
+  public void uploadFileWork(String from, String to) throws Exception {
+    ftpTemplate.upload(from, to);
+  }
+}
+```
+
+## 配置
+
+### 单主机配置
+
+- ftp基本配置（密码登录）
+
+```yaml
+ftp:
+  host: localhost
+  port: 22
+  username: root
+  password: 1234
+```
+
+- 连接池配置（可不配置使用默认值）
+
+```yaml
+ftp:
+  pool:
+    min-idle: 1
+    max-idle: 8
+    max-active: 8
+    max-wait: -1
+    test-on-borrow: true
+    test-on-return: false
+    test-while-idle: true
+    time-between-eviction-runs: 600000
+    min-evictable-idle-time-millis: 1800000
+```
+
+### 多主机配置
+
+在多 Host 使用  FtpTemplate 需要为 FTPBox 指定将要使用的主机，详细操作见下方API。hosts 下可配置多台主机。rd-1为主机名（ftp.hosts 下 map 中的 key 代表 hostName ，可自定义主机名）
+
+- 多 host ，密码登录
+
+```yaml
+ftp:
+  hosts:
+    rd-1:
+      host: 127.0.0.1
+      port: 22
+      username: lihw
+      password: 1234
+    rd-2:
+      host: 127.0.0.2
+      port: 22
+      username: lihw
+      password: 1234
+```
+
+- 多 Host 连接池配置（可不配置使用默认值）
+
+```yaml
+ftp:
+  pool:
+    min-idle-per-key: 1
+    max-idle-per-key: 8
+    max-active-per-key: 8
+    max-active: 8
+    max-wait: -1
+    test-on-borrow: true
+    test-on-return: false
+    test-while-idle: true
+    time-between-eviction-runs: 600000
+    min-evictable-idle-time-millis: 1800000
+```
+
+### 多Host使用手册
+
+- `HostsManage.changeHost(hostname)` ：通过 hostName 指定下次使用的连接。注意它只能指定下一次的连接！！！
+
+```java
+HostsManage.changeHost("rd-1");
+// 成功打印 rd-1 对应连接的原始目录
+ftpTemplate.execute(ftpClient::pwd);
+// 第二次执行失败，抛出空指针，需要再次指定对应连接才能继续使用
+ftpTemplate.execute(ftpClient::pwd);
+```
+
+- `HostsManage.changeHost(hostname, boolean)`：连续使用相同 host 进行操作，避免执行一次 FtpTemplate 就要设置一次 hostName。注意要配合 `HostHolder.clearHost()` 使用！！！
+
+```java
+HostsManage.changeHost("rd-1", false);
+try {
+  ftpTemplate.upload("D:\\a.docx", "/home/ftpbox/a.docx");
+  ftpTemplate.upload("D:\\b.pdf", "ftpbox/b.pdf");
+  ftpTemplate.upload("D:\\c.doc", "c.doc");
+} finally {
+  HostsManage.clearHost();
+}
+```
+
+- `HostsManage.hostNames()` 与 ：获取所有的 host 连接的 name
+
+```java
+//有时需要批量执行配置的 n 个 host 连接，此时可以通过该方法获取所有或过滤后的 hostName 集合。
+for (String hostName : HostsManage.hostNames()) {
+   HostsManage.changeHost(hostName);
+   ftpTemplate.upload("D:\\a.docx", "/home/ftpbox/a.docx");
+}
+```
+
+- `HostsManage.hostNames(Predicate<String>)`：获取过滤后的 host 连接的 name
+
+```java
+// 获取所有以“rd-”开头的 hostName
+for (String hostName : HostsManage.hostNames(s -> s.startsWith("rd-"))) {
+  HostsManage.changeHost(hostName);
+  ftpTemplate.upload("D:\\a.docx", "/home/ftpbox/a.docx");
+}
 ```
