@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.lihewei7</groupId>
     <artifactId>ftpbox-spring-boot-starter</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <name>ftpbox-spring-boot-starter</name>
     <description>Starter for ftp</description>
     <url>https://github.com/lihewei7/ftpbox-spring-boot-starter</url>

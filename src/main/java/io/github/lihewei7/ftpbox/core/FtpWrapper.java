@@ -106,6 +106,22 @@ public class FtpWrapper {
         }
     }
 
+    /**
+     * ftp get Remote File size.
+     *
+     * @param filePath Remote File absolute path
+     * @throws Exception
+     */
+    public Long size(String filePath) throws Exception {
+        Assert.hasLength(filePath, "path must not be null");
+        UnixPath path = UnixPath.getPath(filePath);
+        if (path.getFileName().equals("")){
+            throw new IllegalArgumentException(String.format("filePaht Error:%s ,executive size() method requirement absolute path",filePath));
+        }
+        this.changeDirectory(path.getDir());
+        return ftpClient.size(path.getFileName());
+    }
+
     public void cd(String path) throws Exception {
         try {
             ftpClient.chdir(path);

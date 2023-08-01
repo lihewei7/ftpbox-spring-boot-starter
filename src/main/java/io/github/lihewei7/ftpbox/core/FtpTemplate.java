@@ -63,4 +63,8 @@ public final class FtpTemplate {
     public String list(String path) throws Exception {
         return this.execute(ftpClient -> new FtpWrapper(ftpClient).list(path));
     }
+
+    public Long size(String fileAbsolutePath) throws Exception {
+        return this.execute(ftpClient -> new FtpWrapper(ftpClient).size(fileAbsolutePath));
+    }
 }

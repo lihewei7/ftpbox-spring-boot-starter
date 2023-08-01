@@ -20,17 +20,18 @@ FTPBox 是一个基于 FTP协议的 SpringBoot Starter，使用池技术管理FT
 <dependency>
     <groupId>io.github.lihewei7</groupId>
     <artifactId>ftpbox-spring-boot-starter</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
-| 毕业版本   | 描述                                 |
-| ------ | ---------------------------------- |
-| v1.0.0 | Version initialization             |
-| v1.0.1 | Version optimization               |
-| v1.0.2 | Optimize configuration information |
-| v1.0.3 | Standardization to name            |
-| v1.0.4 | ChangeDirectory modify to public   |
+| 毕业版本   | 描述                                       |
+| ------ | ---------------------------------------- |
+| v1.0.0 | Version initialization                   |
+| v1.0.1 | Version optimization                     |
+| v1.0.2 | Optimize configuration information       |
+| v1.0.3 | Standardization to name                  |
+| v1.0.4 | ChangeDirectory modify to public         |
+| v1.0.5 | Gets the file size based on the file's absolute path |
 
 ## API
 
